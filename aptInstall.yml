@@ -27,14 +27,3 @@
         - openjdk-11-jdk
         - maven
 
-# Install GIT here tehere are some post install tasks you need to complete
-  - name: Install Git
-    apt:
-      name: git
-      state: present
-
-
-
-
-
-

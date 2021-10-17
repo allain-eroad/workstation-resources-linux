@@ -42,6 +42,8 @@ clean ~/.ansible directory and it may just work again, it did for me. I just emp
 ##Help
 THere is lots of documentation on Ansible and it is a huge topic in itself.  
 https://docs.ansible.com/  
+https://www.middlewareinventory.com/blog/run-ansible-playbook-locally/
+
 
 ##Follow-up work
 I would like to add the following
@@ -53,4 +55,6 @@ I would like to add the following
     SQL Squirrel
     SOAP-UI
     Postmnm application.
+    fortclient
+    Chromebrowser
 
