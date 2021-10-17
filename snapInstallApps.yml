@@ -1,0 +1,42 @@
+---
+- hosts: localhost
+  become: yes
+
+# Pre-task to make use the APT cache is up to date. Note we are using APT here rather than APT-GET. 
+# APT is more up to date version of APT-GET and has some improvemnets over APT-GET.
+# This makes ansible update theapt cache.  
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=true cache_valid_time=3600
+
+# Start ofd the tasks of this playbook
+  tasks:
+  - name: Upgrade Ubuntu.  
+    apt:
+      upgrade: "dist"
+    when: ansible_distribution == 'Ubuntu'
+
+# Install your preferred IntelliJ here change the "name" to the one you want to use.
+# your choice of intelliJ is
+# intellij-idea-ultimate
+# intellij-idea-community
+
+  - name: Install preferred IntelliJ
+    snap:
+      name: intellij-idea-ultimate
+      classic: yes
+      state: present
+
+# Install the slack application.
+  - name: Install Slack chat
+    snap:
+      name: slack
+      classic: yes
+      state: present
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+---
+- hosts: localhost
+  become: yes
+
+# Pre-task to make use the APT cache is up to date. Note we are using APT here rather than APT-GET. 
+# APT is more up to date version of APT-GET and has some improvemnets over APT-GET.
+# This makes ansible update theapt cache.  
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=true cache_valid_time=3600
+
+# Start ofd the tasks of this playbook
+  tasks:
+  - name: Upgrade Ubuntu.  
+    apt:
+      upgrade: "dist"
+    when: ansible_distribution == 'Ubuntu'
+
+#
+# We need to install the apps needed for Docker installation.
+#
+  - name: Install Docker dependencies
+    apt:
+      name: "{{ packages }}" 
+      state: present
+    vars:
+      packages:
+        - apt-transport-https 
+        - ca-certificates
+        - curl 
+        - gnupg-agent
+        - software-properties-common
+
+  - name: add GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+#
+# Currently we have to set the ubuntu repo manually but by adding "focal" but this could be improved in future.
+#
+  - name: Add docker repository to apt
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu focal stable
+      state: present
+
+# /etc/apt/sources.list.d/docker.list > /dev/null
+
+  - name: install docker
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    loop:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+
+# We still need to add the group users to this so continue with the steps 3 onwards in 
+# https://confluence.eroad.io/display/ENG/Backend+Environment+Setup#tab-DOCKER
+#
+
