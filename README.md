@@ -6,12 +6,12 @@ first so that you can then install GIT.
 
 First install Ansible on your local machine.
 
-##Method A
-    $ sudo apt-add-repository -y ppa:ansible/ansible
-    $ sudo apt-get update
-    $ sudo apt-get install -y ansible
+## Method A  
+    $ sudo apt-add-repository -y ppa:ansible/ansible 
+    $ sudo apt-get update 
+    $ sudo apt-get install -y ansible 
  
-##Method B
+## Method B  
 Check if PIP is installed
 
     pip –version
@@ -24,7 +24,7 @@ Install Ansible via pi3
 
     pip install ansible
 
-#Running the Ansible playbooks
+# Running the Ansible playbooks
 So we are going to create all the project files pointing at localhost
 
 Order of precedence
@@ -46,23 +46,23 @@ Some of the scripts take a long time, or seem to. The IntelliJ script does take 
 Another thing is the lack of feedback, frankly it is a bit disturbing at first and is why I split some of the scripts up a bit.
 
 
-##Common issues
+## Common issues
 Or at least things that I found while running the  scripts.
 
-###Failed to lock apt for exclusive operation
+### Failed to lock apt for exclusive operation
 There seem to be several solutions and causes of this https://stackoverflow.com/questions/33563425/ansible-1-9-4-failed-to-lock-apt-for-exclusive-operation
 
 
-###Ansible stuck on gathering facts
+### Ansible stuck on gathering facts
 clean ~/.ansible directory and it may just work again, it did for me. I just emptied the ~/.ansible/tmp dir.
 
-##Help
+## Help
 THere is lots of documentation on Ansible and it is a huge topic in itself.  
 https://docs.ansible.com/  
 https://www.middlewareinventory.com/blog/run-ansible-playbook-locally/
 
 
-##Follow-up work
+## Follow-up work
 I would like to add the following
 
     settings
