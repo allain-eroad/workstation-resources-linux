@@ -28,13 +28,14 @@ Install Ansible via pi3
 So we are going to create all the project files pointing at localhost
 
 Order of precedence
-1. snapInstallApps.yml
-2. javaInstall.wml
-3. sublime-text4.yml
-4. dockerInstall.yml
-5. teamsInstall.yml
+1. javaInstall.wml      - installs the JDK 8, 11 and Maven
+2. snapInstallApps.yml  - installs intellij-idea-ultimate\community and slack
+3. sublime-text4.yml    - sublime text 4
+4. dockerInstall.yml    - docker installation
+5. teamsInstall.yml     - MS teams 
 
 Don't run system.yml, it is where I am trying to work out getting system vars into the scripts dynamically.
+Change the snapInstallApps file to install the version of IntelliJ you want to use.
 
 I would start with the from the terminal run each of the files using the following command.
 Ansible hosts is the file that points Ansible at the local machine, ask-become-pass asks for your password so that ansible can run SUDO, the password does not get recorded anywhere.
