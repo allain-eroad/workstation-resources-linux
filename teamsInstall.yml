@@ -1,0 +1,48 @@
+---
+- hosts: localhost
+  become: yes
+
+# Pre-task to make use the APT cache is up to date. Note we are using APT here rather than APT-GET.
+# APT is more up to date version of APT-GET and has some improvemnets over APT-GET.
+# This makes ansible update theapt cache.
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=true cache_valid_time=3600
+
+  # Start ofd the tasks of this playbook
+  tasks:
+    - name: Upgrade Ubuntu.
+      apt:
+        upgrade: "dist"
+      when: ansible_distribution == 'Ubuntu'
+
+  #
+  # We need to install the apps needed for SublimeText installation.
+  #
+    - name: Install dependencies
+      apt:
+        name: "apt-transport-https"
+        state: present
+
+  #
+  # Install MS-teams Add the GPG key
+  #
+    - name: add GPG key
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+
+  #
+  # Add the MS-Teams repo to the repo list
+    - name: Add MS-teams repository to apt
+      apt_repository:
+        repo: deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams/ stable main
+        state: present
+
+  #
+  # Install MS-teams
+    - name: Install MS-teams
+      apt:
+        name: "teams"
+        state: present
+        update_cache: yes

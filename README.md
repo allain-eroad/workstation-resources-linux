@@ -1,25 +1,42 @@
 # workstation-resources-linux
-Using Ansible to set up the Linux development environment for ERoad API development.
+Using Ansible to set up the Linux development environment for ERoad API development. 
+ 
+OK the fly in the ointment is that we have to download this as a ZIP 
+first so that you can then install GIT. 
 
 First install Ansible on your local machine.
 
+##Method A
     $ sudo apt-add-repository -y ppa:ansible/ansible
     $ sudo apt-get update
     $ sudo apt-get install -y ansible
+ 
+##Method B
+Check if PIP is installed
 
-OK the fly in the ointment is that we have to download this as a ZIP first so that you can then install GIT.
+    pip –version
 
-Run the files
+If not installed Install pip for python 3
 
-    aptInstall.yml - this installs most of the applications that need APT to be installed 
-    snapInstalApps.yml - this uses SANP to install the applications (clue is in the name)
-    dockerInstall.yml - uses APT but is big enough to be a separate script.
+    sudo apt install python3-pip
+
+Install Ansible via pi3
+
+    pip install ansible
+
+#Running the Ansible playbooks
+So we are going to create all the project files pointing at localhost
+
+Order of precedence
+1. snapInstallApps.yml
+2. javaInstall.wml
+3. sublime-text4.yml
+4. dockerInstall.yml
+5. teamsInstall.yml
 
 Don't run system.yml, it is where I am trying to work out getting system vars into the scripts dynamically.
 
-I would start with the  
-
-from the terminal run each of the files using the following command.
+I would start with the from the terminal run each of the files using the following command.
 Ansible hosts is the file that points Ansible at the local machine, ask-become-pass asks for your password so that ansible can run SUDO, the password does not get recorded anywhere.
 
 

@@ -1,0 +1,51 @@
+---
+- hosts: localhost
+  become: yes
+
+# Pre-task to make use the APT cache is up to date. Note we are using APT here rather than APT-GET. 
+# APT is more up to date version of APT-GET and has some improvemnets over APT-GET.
+# This makes ansible update theapt cache.  
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=true cache_valid_time=3600
+
+# Start ofd the tasks of this playbook
+  tasks:
+  - name: Upgrade Ubuntu.  
+    apt:
+      upgrade: "dist"
+    when: ansible_distribution == 'Ubuntu'
+
+# Install the basic packages, comment out the ones you do not want.
+#  - name: Install required Ubuntu packages
+#    apt:
+#      name: "{{ packages }}"
+#      state: present
+#    vars:
+#      packages:
+#        - openjdk-8-jdk
+#        - openjdk-11-jdk
+#        - maven
+
+# Install GIT here tehere are some post install tasks you need to complete
+  - name: Install Git
+    apt:
+      name: git
+      state: present
+      
+# Install your preferred InteliJ here just comment out the one you don't want to use.
+
+  - name: Install preferred IntelliJ
+    snap:
+      name: "{{ packages }}"
+      classic: yes
+      state: present
+    vars:
+      packages:
+#        - intellij-idea-community
+        - intellij-idea-ultimate
+
+
+
+
+
